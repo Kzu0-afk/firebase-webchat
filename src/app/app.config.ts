@@ -19,6 +19,6 @@ export const appConfig: ApplicationConfig = {
       provideStorage(() => getStorage()),
       provideMessaging(() => getMessaging())
     ),
-    provideRouter(routes)
+    provideRouter(routes), provideFirebaseApp(() => initializeApp({"projectId":"fir-webchat-7618e","appId":"1:19233781183:web:e125e600c68073eec09d0a","storageBucket":"fir-webchat-7618e.firebasestorage.app","apiKey":"AIzaSyCHCFFEkckbd_5k7s7NVGz3gmXYWvTYkj0","authDomain":"fir-webchat-7618e.firebaseapp.com","messagingSenderId":"19233781183","measurementId":"G-8K5QL6SZDK","projectNumber":"19233781183","version":"2"})), provideAuth(() => getAuth()), provideFirestore(() => getFirestore()), provideMessaging(() => getMessaging()), provideStorage(() => getStorage())
   ],
 };

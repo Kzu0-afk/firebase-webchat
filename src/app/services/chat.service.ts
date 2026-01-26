@@ -75,11 +75,25 @@ export class ChatService {
 
   // Signs-in Friendly Chat.
   login() {
-    signInWithPopup(this.auth, this.provider).then((result) => {
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      this.router.navigate(['/', 'chat']);
-      return credential;
-    });
+    signInWithPopup(this.auth, this.provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        this.router.navigate(['/', 'chat']);
+        return credential;
+      })
+      .catch((error) => {
+        console.error('Sign-in error:', error);
+        // Handle specific error codes
+        if (error.code === 'auth/operation-not-allowed') {
+          console.error('Google Sign-in is not enabled. Please enable it in the Firebase Console.');
+        } else if (error.code === 'auth/popup-blocked') {
+          console.error('Popup was blocked by the browser. Please allow popups for this site.');
+        } else if (error.code === 'auth/popup-closed-by-user') {
+          console.error('Sign-in popup was closed before completion.');
+        } else {
+          console.error('Error signing in:', error.message);
+        }
+      });
   }
 
   // Logout of Friendly Chat.

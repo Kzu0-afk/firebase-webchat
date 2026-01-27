@@ -136,16 +136,20 @@ export class ChatService {
       return;
     }
 
-    if (this.currentUser === null) {
+    // Always grab the latest auth state from Firebase in case the subscription
+    // hasn't updated `currentUser` yet.
+    const currentUser = this.auth.currentUser ?? this.currentUser;
+
+    if (!currentUser) {
       console.log('addMessage requires a signed-in user');
       return;
     }
 
     const message: ChatMessage = {
-      name: this.currentUser.displayName,
-      profilePicUrl: this.currentUser.photoURL,
+      name: currentUser.displayName,
+      profilePicUrl: currentUser.photoURL,
       timestamp: serverTimestamp(),
-      uid: this.currentUser?.uid,
+      uid: currentUser?.uid,
     };
 
     textMessage && (message.text = textMessage);

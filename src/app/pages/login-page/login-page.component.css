@@ -1,0 +1,21 @@
+button[type="button"] {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  z-index: 1000 !important;
+  position: relative !important;
+}
+
+button[type="button"]:hover {
+  transform: translateY(-2px);
+}
+
+button[type="button"]:active {
+  transform: translateY(0);
+}
+
+button[type="button"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+

@@ -7,9 +7,20 @@
             <img src="../../../assets/FriendlyChatLogo.png" class="w-[200px]" />
             <span class="text-navy-600 text-5xl font-light mt-5">Friendly Chat</span>
         </div>
-        <button type="button" class="transition-all w-[400px] bg-white shadow-md flex flex-wrap items-center rounded-lg p-2 hover:shadow-xl justify-between cursor-pointer" (click)="chatService.login(); $event.stopPropagation()" [disabled]="false">
-            <img src="../../../assets/Google.png" class="w-8 m-2" />
-            <span class="text-slate-700 text-xl flex-grow">Sign in with Google</span>
-        </button>
+        <div class="flex flex-col gap-2 items-center">
+            <button 
+                type="button" 
+                id="google-signin-button"
+                class="transition-all w-[400px] bg-white shadow-md flex flex-wrap items-center rounded-lg p-2 hover:shadow-xl justify-between cursor-pointer active:scale-95" 
+                (click)="handleLoginClick($event)"
+                (mousedown)="handleMouseDown()"
+                (mouseup)="handleMouseUp()"
+                [attr.aria-label]="'Sign in with Google'"
+                style="pointer-events: auto !important; z-index: 1000 !important; position: relative !important;">
+                <img src="../../../assets/Google.png" class="w-8 m-2" alt="Google logo" />
+                <span class="text-slate-700 text-xl flex-grow">Sign in with Google</span>
+            </button>
+            <p class="text-sm text-gray-500" [innerText]="clickTest"></p>
+        </div>
     </div>
 </div>

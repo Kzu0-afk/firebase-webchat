@@ -1,0 +1,49 @@
+runConfig:
+  cpu: 1
+  memoryMiB: 512
+  concurrency: 50
+  minInstances: 1
+
+# Secrets/env vars used at BUILD time to generate `src/assets/firebase-config.js`
+# via `scripts/generate-firebase-config.mjs`.
+#
+# IMPORTANT:
+# - Do NOT put raw API keys here.
+# - Use Secret Manager references instead.
+env:
+  - variable: FIREBASE_API_KEY
+    secret: firebase_web_api_key_prod
+    availability:
+      - BUILD
+
+  - variable: FIREBASE_AUTH_DOMAIN
+    value: fir-webchat-7618e.firebaseapp.com
+    availability:
+      - BUILD
+
+  - variable: FIREBASE_PROJECT_ID
+    value: fir-webchat-7618e
+    availability:
+      - BUILD
+
+  - variable: FIREBASE_STORAGE_BUCKET
+    value: fir-webchat-7618e.firebasestorage.app
+    availability:
+      - BUILD
+
+  - variable: FIREBASE_MESSAGING_SENDER_ID
+    value: "19233781183"
+    availability:
+      - BUILD
+
+  - variable: FIREBASE_APP_ID
+    value: 1:19233781183:web:e125e600c68073eec09d0a
+    availability:
+      - BUILD
+
+  - variable: FIREBASE_MEASUREMENT_ID
+    value: G-8K5QL6SZDK
+    availability:
+      - BUILD
+
+

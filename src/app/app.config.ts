@@ -12,7 +12,7 @@ import { provideRouter } from '@angular/router';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
+      provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth(getApp())),
     provideFirestore(() => getFirestore(getApp())),
     provideFunctions(() => getFunctions(getApp())),

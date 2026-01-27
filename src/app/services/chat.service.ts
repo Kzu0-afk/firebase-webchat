@@ -75,23 +75,42 @@ export class ChatService {
 
   // Signs-in Friendly Chat.
   login() {
+    console.log('Login button clicked');
+    console.log('Auth service:', this.auth);
+    console.log('Provider:', this.provider);
+    
+    if (!this.auth) {
+      console.error('Auth service is not initialized. Check Firebase configuration.');
+      alert('Authentication service is not ready. Please refresh the page.');
+      return;
+    }
+
     signInWithPopup(this.auth, this.provider)
       .then((result) => {
+        console.log('Sign-in successful:', result);
         const credential = GoogleAuthProvider.credentialFromResult(result);
         this.router.navigate(['/', 'chat']);
         return credential;
       })
       .catch((error) => {
         console.error('Sign-in error:', error);
+        console.error('Error code:', error.code);
+        console.error('Error message:', error.message);
         // Handle specific error codes
         if (error.code === 'auth/operation-not-allowed') {
           console.error('Google Sign-in is not enabled. Please enable it in the Firebase Console.');
+          alert('Google Sign-in is not enabled. Please enable it in the Firebase Console.');
         } else if (error.code === 'auth/popup-blocked') {
           console.error('Popup was blocked by the browser. Please allow popups for this site.');
+          alert('Popup was blocked. Please allow popups for this site and try again.');
         } else if (error.code === 'auth/popup-closed-by-user') {
           console.error('Sign-in popup was closed before completion.');
+        } else if (error.code === 'auth/unauthorized-domain') {
+          console.error('Unauthorized domain. Please add your domain to Firebase authorized domains.');
+          alert('Unauthorized domain. Please add your domain to Firebase authorized domains in the Firebase Console.');
         } else {
           console.error('Error signing in:', error.message);
+          alert(`Sign-in error: ${error.message}`);
         }
       });
   }

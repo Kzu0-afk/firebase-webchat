@@ -48,7 +48,7 @@
     </div>
     <div class="bg-navy-10 w-full shadow-[0_35px_60px_-15px_rgba(0,0,0,1)] bottom-0 fixed">
         <div class="flex-wrap flex w-5/6 mx-auto">
-            <input type="file" class="file-input hidden" (change)="this.uploadImage($event)" #fileUpload>
+            <input type="file" class="file-input hidden" (change)="uploadImage($event)" #fileUpload>
             <div class="file-upload w-16 h-16 rounded-full bg-amber-800 my-3">
                 <button color="primary" class="upload-btn" (click)="fileUpload.click()">
                     <img class="w-16 h-16" src="../../../assets/add.svg" alt="Upload image" />
@@ -56,8 +56,8 @@
             </div>
             <textarea
                 class="w-4/5 mx-auto h-16 rounded-3xl my-auto overflow-auto text-gray-900 dark:placeholder-gray-400 p-4"
-                placeholder="Write your thoughts here..." [(ngModel)]="this.text"></textarea>
-            <button class="w-16 h-16 rounded-full bg-amber-800 my-3" (click)="this.sendTextMessage()">
+                placeholder="Write your thoughts here..." [(ngModel)]="text"></textarea>
+            <button class="w-16 h-16 rounded-full bg-amber-800 my-3" (click)="sendTextMessage()">
                 <img class="w-16 h-16" src="../../../assets/send.svg" alt="Send message" />
             </button>
         </div>

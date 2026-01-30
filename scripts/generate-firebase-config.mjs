@@ -43,7 +43,8 @@ const cfg = {
 const outPath = path.join(process.cwd(), 'src', 'assets', 'firebase-config.js');
 const contents =
   `// AUTO-GENERATED. Do not commit.\n` +
-  `window.__FIREBASE_WEB_CONFIG__ = ${JSON.stringify(cfg, null, 2)};\n`;
+  // Use globalThis so this file can be safely imported by both Window and ServiceWorker contexts.
+  `globalThis.__FIREBASE_WEB_CONFIG__ = ${JSON.stringify(cfg, null, 2)};\n`;
 
 fs.mkdirSync(path.dirname(outPath), { recursive: true });
 fs.writeFileSync(outPath, contents, { encoding: 'utf8' });

@@ -179,8 +179,12 @@ export class ChatService {
       orderBy('timestamp', 'desc'),
       limit(12)
     );
+
     // Start listening to the query.
-    return collectionData(recentMessagesQuery);
+    // `desc` gives newest first; reverse to show oldest -> newest in the UI.
+    return collectionData(recentMessagesQuery).pipe(
+      map((messages) => [...messages].reverse())
+    );
   };
 
   // Saves a new message containing an image in Firebase.

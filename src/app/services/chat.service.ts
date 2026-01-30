@@ -245,6 +245,18 @@ export class ChatService {
   // Saves the messaging device token to Cloud Firestore.
   saveMessagingDeviceToken = async () => {
     try {
+      // Ensure service worker is registered before getting token
+      if ('serviceWorker' in navigator) {
+        try {
+          const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+          console.log('Service Worker registered:', registration.scope);
+          // Wait a bit for service worker to be ready
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        } catch (swError) {
+          console.warn('Service Worker registration failed:', swError);
+        }
+      }
+
       const currentToken = await getToken(this.messaging);
       if (currentToken) {
         console.log('Got FCM device token:', currentToken);

@@ -173,7 +173,14 @@ export class ChatService {
 
   // Loads chat messages history and listens for upcoming ones.
   loadMessages = () => {
-    return null as unknown;
+    // Create the query to load the last 12 messages and listen for new ones.
+    const recentMessagesQuery = query(
+      collection(this.firestore, 'messages'),
+      orderBy('timestamp', 'desc'),
+      limit(12)
+    );
+    // Start listening to the query.
+    return collectionData(recentMessagesQuery);
   };
 
   // Saves a new message containing an image in Firebase.
@@ -253,10 +260,8 @@ export class ChatService {
         // Need to request permissions to show notifications.
         this.requestNotificationsPermissions();
       }
-    } catch (error) {
+    } catch(error) {
       console.error('Unable to get messaging token.', error);
-      // Need to request permissions to show notifications.
-      this.requestNotificationsPermissions();
-    }
+    };
   };
 }

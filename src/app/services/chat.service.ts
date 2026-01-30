@@ -264,10 +264,8 @@ export class ChatService {
         // Need to request permissions to show notifications.
         this.requestNotificationsPermissions();
       }
-    } catch (error) {
+    } catch(error) {
       console.error('Unable to get messaging token.', error);
-      // Need to request permissions to show notifications.
-      this.requestNotificationsPermissions();
-    }
+    };
   };
 }

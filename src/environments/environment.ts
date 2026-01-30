@@ -1,15 +1,18 @@
 declare global {
-  interface Window {
-    __FIREBASE_WEB_CONFIG__?: {
-      apiKey: string;
-      authDomain: string;
-      projectId: string;
-      storageBucket: string;
-      messagingSenderId: string;
-      appId: string;
-      measurementId?: string;
-    };
-  }
+  // Injected at runtime via `src/assets/firebase-config.js` (gitignored).
+  // Uses `globalThis` so it can be read in both browser and service worker contexts.
+  // eslint-disable-next-line no-var
+  var __FIREBASE_WEB_CONFIG__:
+    | {
+        apiKey: string;
+        authDomain: string;
+        projectId: string;
+        storageBucket: string;
+        messagingSenderId: string;
+        appId: string;
+        measurementId?: string;
+      }
+    | undefined;
 }
 
 /**
@@ -17,7 +20,7 @@ declare global {
  * It is injected via `src/assets/firebase-config.js` (gitignored).
  */
 export const environment = {
-  firebase: window.__FIREBASE_WEB_CONFIG__ ?? {
+  firebase: globalThis.__FIREBASE_WEB_CONFIG__ ?? {
     apiKey: 'API_KEY',
     authDomain: 'PROJECT_ID.firebaseapp.com',
     projectId: 'PROJECT_ID',

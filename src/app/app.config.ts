@@ -17,6 +17,10 @@ export const appConfig: ApplicationConfig = {
     provideFirestore(() => getFirestore(getApp())),
     provideFunctions(() => getFunctions(getApp())),
     provideStorage(() => getStorage(getApp())),
-    provideMessaging(() => getMessaging(getApp()))
+    provideMessaging(() => {
+      const messaging = getMessaging(getApp());
+      // AngularFire will auto-detect firebase-messaging-sw.js at root
+      return messaging;
+    })
   ],
 };

@@ -245,15 +245,14 @@ export class ChatService {
   // Saves the messaging device token to Cloud Firestore.
   saveMessagingDeviceToken = async () => {
     try {
-      // Ensure service worker is registered before getting token
+      // Ensure service worker is ready before getting token
       if ('serviceWorker' in navigator) {
         try {
-          const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
-          console.log('Service Worker registered:', registration.scope);
-          // Wait a bit for service worker to be ready
-          await new Promise(resolve => setTimeout(resolve, 1000));
-        } catch (swError) {
-          console.warn('Service Worker registration failed:', swError);
+          await navigator.serviceWorker.ready;
+        } catch (e) {
+          // Service worker not ready, try to register it
+          await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+          await navigator.serviceWorker.ready;
         }
       }
 
@@ -278,6 +277,8 @@ export class ChatService {
       }
     } catch(error) {
       console.error('Unable to get messaging token.', error);
+      // Need to request permissions to show notifications.
+      this.requestNotificationsPermissions();
     };
   };
 }

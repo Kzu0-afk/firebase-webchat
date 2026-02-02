@@ -1,4 +1,4 @@
-# Friendly Chat
+# Friendly Chat - WEBCHAT
 
 A real-time web chat application built with Angular and Firebase, featuring instant messaging, image sharing, and Google authentication.
 
